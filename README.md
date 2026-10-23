@@ -24,6 +24,34 @@ python analysis.py
 ## Results
 Results are written to `results.json` (and a chart to `figures/`).
 
+## Results (latest run)
+
+On 40 simulated item banks (300 items each), a standard random-restart hill-climbing assembler had a mean relative gap to optimal penalty of 96.1% (SD 6.1, lower is better), while greedy-seeded simulated annealing reached 48.3% (SD 5.0) under the same evaluation budget.
+
+| Metric | Value |
+|---|---|
+| baseline_score | 96.11 |
+| baseline_score_std | 6.054 |
+| baseline_within1pct | 0 |
+| baseline_within1pct_std | 0 |
+| baseline_unmet | 1.583 |
+| baseline_unmet_std | 0.03118 |
+| improved_score | 48.29 |
+| improved_score_std | 5.044 |
+| improved_within1pct | 0 |
+| improved_within1pct_std | 0 |
+| improved_unmet | 1.475 |
+| improved_unmet_std | 0.03536 |
+| improvement | 47.81 |
+| n_valid_banks | 40 |
+| share_milp_proven_optimal | 0.85 |
+| mean_optimal_penalty | 0.228 |
+| eval_budget_per_run | 200000 |
+
+Run on 2026-10-23. Full output: [results.json](results.json) · [run.log](run.log)
+
+Notes: No training/tuning: the 40 banks are the test set and SA settings (T 0.5->0.01) were fixed a priori. Banks, criteria and weights are synthetic, so results may not transfer to real banks. Relative gap = (penalty - MILP penalty)/max(MILP penalty, 1e-3); MILP has a 10 s limit per bank, so the reference is proven optimal only for the share given in share_milp_proven_optimal (gaps can be negative otherwise). 'Unmet' counts 11 criteria with tolerances (time 1%, difficulty 0.02, discrimination 2% of goal).
+
 ## Reference
 
 This project is motivated by the following paper:
