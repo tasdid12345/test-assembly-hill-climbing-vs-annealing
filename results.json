@@ -1,0 +1,37 @@
+{
+  "question": "Can a greedy-seeded simulated-annealing swap search come closer to the proven-optimal test than a plain hill-climbing assembler under the same evaluation budget on simulated item banks with classified criteria?",
+  "method": "40 seeded simulated item banks (300 items); weighted-deviation penalty over topic/type counts, total time, mean difficulty and a soft discrimination goal; both heuristics get the same penalty-evaluation budget and run with seeds 42-44; reference optimum from an exact MILP (HiGHS).",
+  "dataset": {
+    "name": "Simulated item banks with classified criteria",
+    "source_url": "generated in analysis.py (numpy)",
+    "n_rows": 12000,
+    "n_train": 0,
+    "n_test": 40,
+    "same_as_paper": false,
+    "baseline_is_papers_method": false
+  },
+  "metric_name": "mean relative gap to optimal penalty",
+  "higher_is_better": false,
+  "baseline": "Standard hill-climbing assembler: random start, best single-item swap, stop at local optimum, random restarts until the evaluation budget is spent (stand-in; the paper's modifications are unknown).",
+  "improved": "Greedy construction as seed followed by simulated annealing over single-item swaps with a fixed geometric cooling schedule, using the same evaluation budget (greedy evaluations are charged to it).",
+  "metrics": {
+    "baseline_score": 96.10698817706843,
+    "baseline_score_std": 6.053712488915113,
+    "baseline_within1pct": 0.0,
+    "baseline_within1pct_std": 0.0,
+    "baseline_unmet": 1.5833333333333333,
+    "baseline_unmet_std": 0.03118047822311617,
+    "improved_score": 48.29314271704277,
+    "improved_score_std": 5.04380729631238,
+    "improved_within1pct": 0.0,
+    "improved_within1pct_std": 0.0,
+    "improved_unmet": 1.4749999999999999,
+    "improved_unmet_std": 0.035355339059327355,
+    "improvement": 47.81384546002566,
+    "n_valid_banks": 40,
+    "share_milp_proven_optimal": 0.85,
+    "mean_optimal_penalty": 0.22795276362493486,
+    "eval_budget_per_run": 200000
+  },
+  "notes": "No training/tuning: the 40 banks are the test set and SA settings (T 0.5->0.01) were fixed a priori. Banks, criteria and weights are synthetic, so results may not transfer to real banks. Relative gap = (penalty - MILP penalty)/max(MILP penalty, 1e-3); MILP has a 10 s limit per bank, so the reference is proven optimal only for the share given in share_milp_proven_optimal (gaps can be negative otherwise). 'Unmet' counts 11 criteria with tolerances (time 1%, difficulty 0.02, discrimination 2% of goal)."
+}
